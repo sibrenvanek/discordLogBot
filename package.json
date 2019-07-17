@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon watch"
+		"start": "nodemon watch",
+		"prod": "node src/index.js"
 	},
 	"author": "Laurens, Rens en Sibren",
 	"license": "MIT",
