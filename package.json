@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "ts-node src/index.ts"
+		"start": "nodemon watch"
 	},
-	"author": "DESPLATS Philippe <contact@redekproject.fr> (https://www.redekproject.fr)",
+	"author": "Laurens, Rens en Sibren",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/debug": "0.0.30",
@@ -14,7 +14,7 @@
 		"@types/yamljs": "^0.2.30",
 		"debug": "^3.1.0",
 		"del": "^3.0.0",
-		"nodemon": "^1.17.3",
+		"nodemon": "^1.19.1",
 		"tslint": "^5.9.1",
 		"tslint-eslint-rules": "^5.1.0",
 		"typescript": "^2.8.1"

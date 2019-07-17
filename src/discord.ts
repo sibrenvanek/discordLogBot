@@ -5,6 +5,8 @@ import * as debug from "debug"
 import * as path from "path"
 import * as YAML from "yamljs"
 
+import {messageHandler} from "./modules"
+
 // DEBUG PREPARE
 // ----------------------------------------------------------------------------
 const logSystem	= debug("bot:system")
@@ -38,8 +40,8 @@ export class DiscordTS {
 			// => Prevent message from the bot
 				if (message.author.id !== this.client.user.id) {
 					// => Test command
-						if (message.content === this.config.settings.prefix + "ping") {
-							await message.reply("Pong !")
+						if (message.content.startsWith(this.config.settings.prefix)) {
+							await messageHandler(message)
 						}
 				}
 		})
