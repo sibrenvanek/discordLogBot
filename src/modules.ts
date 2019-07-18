@@ -1,28 +1,25 @@
-"use strict"
+import { Command, MessageHandler } from "./types/messageHandler"
+import executeCommand from "./terminal"
 
-import { Message } from "discord.js"
-import { exec, spawn } from "child_process"
-
-export const messageHandler = async (message: Message) => {
-	const [command, ...params] = message.content.slice(1).split(" ")
-	switch (command) {
-		case "cpu": cpu(message); break
-		case "memory": memory(message); break
-		default: unknown(message, command); break
+const commands: Array<Command> = [
+	{
+		description: "Displays the current CPU usage in percentages.",
+		command: "cpu",
+		f: _params => executeCommand("ps -C java -o %cpu")
+	},
+	{
+		description: "Displays the current memory usage in percentages.",
+		command: "memory",
+		f: _params => executeCommand("ps -C java -o %mem")
 	}
+]
+
+export const messageHandler: MessageHandler = async message => {
+	const [inputCommand, ...params] = message.content.slice(1).split(" ")
+	const command = commands.find(c => c.command === inputCommand)
+
+	await message.channel.send(command
+		? await command.f(params)
+		: `I can't do everything you know... wtf does ${inputCommand} even mean?!`
+	)
 }
-
-const cpu = (message: Message) => exec("ps -C java -o %cpu", async (_error, stdout, stderr) => {
-	if (_error) {
-		await message.channel.send("Something went wrong")
-	}
-	else {
-		await message.channel.send(stdout)
-	}
-})
-
-const memory = (message: Message) => exec("ps -C java -o %mem", async (_error, stdout, stderr) => {
-	await message.channel.send(stdout)
-})
-
-const unknown = (message: Message, command: string) => message.channel.send(`I can't do everything you know... wtf does ${command} even mean?!`)
