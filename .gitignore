@@ -3,3 +3,4 @@ build/
 .vscode/
 settings.yml
 nodemon.json
+*.js

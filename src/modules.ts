@@ -10,13 +10,11 @@ export const messageHandler = async (message: Message) => {
 		case "memory": memory(message); break
 		default: unknown(message, command); break
 	}
-
-	
 }
 
 const cpu = (message: Message) => exec("ps -C java -o %cpu", async (_error, stdout, stderr) => {
 	if (_error) {
-		await message.channel.send("Something went wrong");
+		await message.channel.send("Something went wrong")
 	}
 	else {
 		await message.channel.send(stdout)
@@ -28,4 +26,3 @@ const memory = (message: Message) => exec("ps -C java -o %mem", async (_error, s
 })
 
 const unknown = (message: Message, command: string) => message.channel.send(`I can't do everything you know... wtf does ${command} even mean?!`)
-
