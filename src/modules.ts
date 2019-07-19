@@ -11,6 +11,18 @@ const commands: Array<Command> = [
 		description: "Displays the current memory usage in percentages.",
 		command: "memory",
 		f: _params => executeCommand("ps -C java -o %mem")
+	},
+	{
+		description: "Reboot the machine.",
+		command: "reboot",
+		f: async _params => {
+			if (_params[0] === "Confirm") {
+				return executeCommand("sudo reboot")
+			}
+			else {
+				return "Are you sure you want to do that? If so please type 'Confirm' after the command"
+			}
+		}
 	}
 ]
 
