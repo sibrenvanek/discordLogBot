@@ -5,7 +5,7 @@ import * as debug from "debug"
 import * as path from "path"
 import * as YAML from "yamljs"
 
-import {messageHandler} from "../message/messageController"
+import MessageController from "../message/messageController"
 
 // DEBUG PREPARE
 // ----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ export class DiscordTS {
 	private readonly client: Client
 	private readonly config: any
 
-	constructor() {
+	constructor(private readonly messageHandler: MessageController) {
 		this.client = new Client()
 		this.config = YAML.load(path.resolve(__dirname, "settings.yml"))
 	}
@@ -41,7 +41,7 @@ export class DiscordTS {
 				if (message.author.id !== this.client.user.id) {
 					// => Test command
 						if (message.content.startsWith(this.config.settings.prefix)) {
-							await messageHandler(message)
+							await this.messageHandler.handle(message)
 						}
 				}
 		})
