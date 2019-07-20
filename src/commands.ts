@@ -15,7 +15,7 @@ export const commands: Array<Command> = [
 	{
 		description: "Reboots the machine.",
 		command: "reboot",
-		f: async params => params[0] === "confirm"
+		f: async params => params.length && params[0] === "confirm"
 			? await execute("sudo reboot")
 			: "Are you sure you want to do that? If so please type 'confirm' after the command"
 	}
