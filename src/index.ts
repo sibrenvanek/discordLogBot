@@ -1,6 +1,6 @@
 "use strict"
 
-import { DiscordTS } from "./discord"
+import { DiscordTS } from "./lib/discord/discord"
 
 const bot: DiscordTS = new DiscordTS()
 bot.start()

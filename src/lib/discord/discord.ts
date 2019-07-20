@@ -5,7 +5,7 @@ import * as debug from "debug"
 import * as path from "path"
 import * as YAML from "yamljs"
 
-import {messageHandler} from "./modules"
+import {messageHandler} from "../message/messageController"
 
 // DEBUG PREPARE
 // ----------------------------------------------------------------------------
