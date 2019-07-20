@@ -1,6 +1,6 @@
 import { DiscordTS } from "./lib/discord/discord"
 
-import MessageController from "./lib/message/messageController"
+import MessageController from "./lib/message/MessageController"
 import { commands } from "./commands"
 
 const messageController = new MessageController(commands)
