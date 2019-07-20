@@ -19,4 +19,15 @@ export const commands: Array<Command> = [
 			? await execute("sudo reboot")
 			: "Are you sure you want to do that? If so please type 'confirm' after the command"
 	}
+	,
+	{
+		description: "Runs a network speedtest.",
+		command: "speedtest",
+		f: async params => params.length ?
+		params[0] === "simple" ? await execute("speedtest-cli --simple") :
+		params[0] === "download" ? await execute("speedtest-cli --no-upload") :
+		params[0] === "upload" ? await execute("speedtes-cli --no-download")
+		: "You can only use one of the following parameters: simple, download or upload to run a speedtest."
+		:	"You need to include one of the following parameters: simple, download or upload to run a speedtest."
+	}
 ]
