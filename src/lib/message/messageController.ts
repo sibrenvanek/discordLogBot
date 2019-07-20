@@ -1,6 +1,6 @@
 import { Command } from "./types"
 import { Message, RichEmbed } from "discord.js"
-import { embedString } from "../embed/Embedder"
+import { embedTemplate, embedString } from "../embed/Embedder"
 
 const listCommand = (command: Command<RichEmbed>): string => `- ${command.command}: ${command.description}`
 
@@ -14,17 +14,18 @@ export default class MessageController {
 			if (params.length && params[0]) {
 				const helpCommand = this.commands.find(c => c.command === params[0])
 				await message.channel.sendEmbed(helpCommand
-					? embedString(listCommand(helpCommand))
-					: embedString(`Cannot find '${params[0]}'`))
+					? embedString(listCommand(helpCommand), "help")
+					: embedString(`Cannot find '${params[0]}'`, "help"))
 			} else {
-				await message.channel.sendEmbed(embedString(this.commands.map(listCommand).join("\n")))
+				await message.channel.sendEmbed(this.commands.reduce((acc, c) =>
+					acc.addField(c.command, c.parameterDescription ? `${c.description}\n${c.parameterDescription}` : c.description, true), embedTemplate()))
 			}
 		} else {
 			const command = this.commands.find(c => c.command === inputCommand)
 
 			await message.channel.sendEmbed(command
 				? await command.f(params)
-				: embedString(`I can't do everything you know... wtf does '${inputCommand}' even mean?!`)
+				: embedString(`I can't do everything you know... wtf does '${inputCommand}' even mean?!`, "Unknown command")
 			)
 		}
 	}
